@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="dashboard-grid">
+    <!-- Кожна секція — окрема "сторінка", яку перемикає app.js -->
+    <section class="panel chat-panel page" data-page="chat">
+        {% include "chat.html" %}
+    </section>
+
+    <section class="panel wheel-panel page" data-page="wheel">
+        {% include "wheel.html" %}
+    </section>
+
+    <section class="panel today-panel page active" data-page="today">
+        {% include "today.html" %}
+    </section>
+</main>
+
+{% include "nav.html" %}
+{% endblock %}

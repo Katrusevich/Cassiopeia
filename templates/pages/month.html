@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Month View · Cassiopeia{% endblock %}
+{% block content %}
+<section class="panel calendar-panel">
+    <h2 class="panel-title">MONTH VIEW</h2>
+
+    <div class="calendar-nav">
+        <a href="/month?y={{ prev_month.y }}&m={{ prev_month.m }}" class="calendar-nav-btn"><i class="fa-solid fa-chevron-left"></i></a>
+        <span class="calendar-range-label">{{ month_label }}</span>
+        <a href="/month?y={{ next_month.y }}&m={{ next_month.m }}" class="calendar-nav-btn"><i class="fa-solid fa-chevron-right"></i></a>
+    </div>
+
+    <div class="month-grid">
+        <div class="month-weekday">Mo</div>
+        <div class="month-weekday">Tu</div>
+        <div class="month-weekday">We</div>
+        <div class="month-weekday">Th</div>
+        <div class="month-weekday">Fr</div>
+        <div class="month-weekday">Sa</div>
+        <div class="month-weekday">Su</div>
+
+        {% for week in weeks %}
+        {% for cell in week %}
+        {% if cell %}
+        <a href="/day/{{ cell.date }}" class="month-cell{% if cell.is_today %} is-today{% endif %}">
+            <span class="month-cell-num">{{ cell.day_num }}</span>
+            {% for t in cell.tasks %}
+            <span class="month-cell-task">{{ t.title }}</span>
+            {% endfor %}
+        </a>
+        {% else %}
+        <span class="month-cell month-cell-blank"></span>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+    </div>
+</section>
+{% include "nav.html" %}
+{% endblock %}

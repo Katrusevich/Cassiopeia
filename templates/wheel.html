@@ -1,0 +1,46 @@
+<!-- Контейнер центральної панелі (Колесо Балансу) -->
+<div class="wheel-wrapper">
+
+    <h2 class="panel-title">YOUR WHEEL<br>OF BALANCE</h2>
+
+    <!-- Контейнер для графіка Chart.js -->
+    <div class="chart-container">
+        <!-- Сюди app.js буде рендерити радар-діаграму -->
+        <canvas id="wheelChart"></canvas>
+    </div>
+
+    <!-- Блок з коротким висновком (як на макеті) -->
+    <div class="insight-bubble">
+        <p id="wheel-insight-text">
+            Your balance:<br>
+            <span class="insight-subtext">Syncing data...</span>
+        </p>
+    </div>
+
+    <!-- Приорітетна дошка: топ-3 найслабші категорії з пропонованою дією -->
+    <div class="priority-board">
+        <h3 class="priority-board-title">Priority Board</h3>
+        <ul class="priority-board-list" id="priority-board-list">
+            <!-- заповнюється app.js:renderPriorityBoard() -->
+        </ul>
+    </div>
+
+    <!-- Нижні кнопки дій -->
+    <div class="wheel-footer">
+        <div class="wheel-actions">
+            <button class="wheel-action-btn wheel-action-card wheel-action-outline" onclick="goToVisionMission()">
+                <span class="wheel-action-title"><i class="fa-solid fa-compass"></i> Vision &amp; Mission</span>
+                <span class="wheel-action-desc">A full separate page explaining "why I plan daily" and "for what goal"</span>
+            </button>
+            <button class="wheel-action-btn wheel-action-card wheel-action-primary" id="recommend-btn" onclick="getRecommendations()">
+                <span class="wheel-action-title"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Insights &amp; Recommendations</span>
+                <span class="wheel-action-desc">A concise summary of current tasks, balance, and goals — structured by AI</span>
+            </button>
+            <button class="wheel-action-btn wheel-action-card wheel-action-secondary" onclick="goToTaskTracker()">
+                <span class="wheel-action-title"><i class="fa-solid fa-chart-line"></i> Task Tracker</span>
+                <span class="wheel-action-desc">Opens a detail page for time tracking, task type, efficiency, and progress bar</span>
+            </button>
+        </div>
+    </div>
+
+</div>

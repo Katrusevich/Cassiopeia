@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Vision & Mission · Cassiopeia{% endblock %}
+{% block content %}
+<section class="panel vision-panel">
+    <h2 class="panel-title">VISION &amp; MISSION</h2>
+    <p class="vision-subtitle">The core reminder of why you plan every day — read it before you start.</p>
+
+    <form method="post" action="/vision" class="vision-form">
+        <textarea name="content" class="vision-textarea"
+            placeholder="What are you working toward, and why does it matter?">{{ content }}</textarea>
+        <button type="submit" class="wheel-action-btn wheel-action-primary">Save</button>
+    </form>
+</section>
+{% include "nav.html" %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Year View · Cassiopeia{% endblock %}
+{% block content %}
+<section class="panel calendar-panel">
+    <h2 class="panel-title">YEAR VIEW</h2>
+
+    <div class="calendar-nav">
+        <a href="/year?y={{ prev_year }}" class="calendar-nav-btn"><i class="fa-solid fa-chevron-left"></i></a>
+        <span class="calendar-range-label">{{ year }}</span>
+        <a href="/year?y={{ next_year }}" class="calendar-nav-btn"><i class="fa-solid fa-chevron-right"></i></a>
+    </div>
+
+    <div class="year-grid">
+        {% for month in months %}
+        <a href="/month?y={{ year }}&m={{ month.num }}" class="year-month-card{% if month.is_current %} is-today{% endif %}">
+            <span class="year-month-name">{{ month.name }}</span>
+            <span class="year-month-count">{{ month.count }} task{{ 's' if month.count != 1 else '' }}</span>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% include "nav.html" %}
+{% endblock %}

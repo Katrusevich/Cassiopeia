@@ -1,0 +1,29 @@
+<!-- Глобальна навігація. today/wheel/chat лишаються SPA-панелями на "/"
+     (JS перехоплює клік і перемикає .page); week/month/year/vision/tracker —
+     звичайні сторінки, посилання ведуть напряму. -->
+<nav class="bottom-nav page-nav" id="page-nav">
+    <a class="nav-btn" data-page="today" href="/#today" aria-label="Today">
+        <i class="fa-regular fa-clock"></i>
+        <span>TODAY</span>
+    </a>
+    <a class="nav-btn{% if active_page == 'week' %} active{% endif %}" href="/week" aria-label="Week">
+        <i class="fa-regular fa-calendar"></i>
+        <span>WEEK</span>
+    </a>
+    <a class="nav-btn{% if active_page == 'month' %} active{% endif %}" href="/month" aria-label="Month">
+        <i class="fa-regular fa-calendar-days"></i>
+        <span>MONTH</span>
+    </a>
+    <a class="nav-btn{% if active_page == 'year' %} active{% endif %}" href="/year" aria-label="Year">
+        <i class="fa-solid fa-globe"></i>
+        <span>YEAR</span>
+    </a>
+    <a class="nav-btn" data-page="wheel" href="/#wheel" aria-label="Wheel of Balance">
+        <i class="fa-solid fa-chart-pie"></i>
+        <span>WHEEL</span>
+    </a>
+    <a class="nav-btn" data-page="chat" href="/#chat" aria-label="Chat">
+        <i class="fa-solid fa-comment"></i>
+        <span>CHAT</span>
+    </a>
+</nav>

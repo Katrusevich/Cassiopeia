@@ -1,0 +1,22 @@
+<!-- Контейнер лівої панелі (Чат) -->
+<div class="chat-wrapper">
+
+    <h2 class="panel-title">CHAT INTERACTION</h2>
+
+    <!-- Вікно з історією повідомлень; наповнюється app.js (і з /chat/history при завантаженні) -->
+    <div id="chat-history" class="chat-history">
+        <div class="loading-indicator" id="chat-loading" style="display: none;">
+            <span>AI is thinking...</span>
+        </div>
+    </div>
+
+    <!-- Форма вводу повідомлення -->
+    <form id="chat-form" class="chat-form">
+        <input type="text" id="chat-input" class="chat-input" placeholder="Type a message..." autocomplete="off"
+            required>
+        <button type="submit" class="send-btn" aria-label="Send">
+            <i class="fa-regular fa-paper-plane"></i>
+        </button>
+    </form>
+
+</div>

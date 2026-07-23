@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Task Tracker · Cassiopeia{% endblock %}
+{% block content %}
+<section class="panel tracker-panel">
+    <h2 class="panel-title">TASK TRACKER</h2>
+
+    <div class="tasks-card main-tasks-card">
+        <div class="card-header">
+            <h3>Log Time</h3>
+        </div>
+        <ul class="task-list">
+            {% for t in loggable %}
+            <li class="tracker-log-row">
+                <span class="task-text">{{ t.title }}</span>
+                <div class="tracker-log-inputs">
+                    <input type="number" min="1" class="tracker-input" id="log-minutes-{{ t.id }}" placeholder="min">
+                    <select class="tracker-input" id="log-type-{{ t.id }}">
+                        <option value="">Type…</option>
+                        <option value="deep-work">Deep work</option>
+                        <option value="admin">Admin</option>
+                        <option value="meeting">Meeting</option>
+                        <option value="errand">Errand</option>
+                    </select>
+                    <button class="wheel-action-btn wheel-action-secondary tracker-log-btn" onclick="logTaskTime({{ t.id }})">Log</button>
+                </div>
+            </li>
+            {% else %}
+            <li class="task-item empty-item"><span class="task-text">Nothing to log right now.</span></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="tasks-card small-tasks-card">
+        <div class="card-header">
+            <h3>Efficiency</h3>
+        </div>
+        <ul class="task-list">
+            {% for t in logged %}
+            {% set pct = (t.estimated_time / t.actual_minutes * 100) if t.actual_minutes else 0 %}
+            <li class="tracker-row">
+                <div class="tracker-row-header">
+                    <span class="task-text">{{ t.title }}</span>
+                    {% if t.task_type %}<span class="tracker-type-badge">{{ t.task_type }}</span>{% endif %}
+                </div>
+                <div class="tracker-bar">
+                    <div class="tracker-bar-fill{% if pct < 60 %} low{% elif pct < 90 %} mid{% endif %}"
+                        style="width: {{ [pct, 100] | min }}%;"></div>
+                </div>
+                <span class="tracker-row-meta">{{ t.actual_minutes }}m actual vs {{ t.estimated_time }}m estimated · {{ pct | round }}% efficiency</span>
+            </li>
+            {% else %}
+            <li class="task-item empty-item"><span class="task-text">No logged tasks yet.</span></li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% include "nav.html" %}
+{% endblock %}

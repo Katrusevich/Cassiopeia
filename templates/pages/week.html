@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Week View · Cassiopeia{% endblock %}
+{% block content %}
+<section class="panel calendar-panel">
+    <h2 class="panel-title">WEEK VIEW</h2>
+
+    <div class="calendar-nav">
+        <a href="/week?d={{ prev_week }}" class="calendar-nav-btn"><i class="fa-solid fa-chevron-left"></i></a>
+        <span class="calendar-range-label">{{ range_label }}</span>
+        <a href="/week?d={{ next_week }}" class="calendar-nav-btn"><i class="fa-solid fa-chevron-right"></i></a>
+    </div>
+
+    <div class="week-list">
+        {% for day in days %}
+        <a href="/day/{{ day.date }}" class="week-day-card{% if day.is_today %} is-today{% endif %}">
+            <div class="week-day-badge">
+                <span class="week-day-name">{{ day.label }}</span>
+                <span class="week-day-num">{{ day.day_num }}</span>
+            </div>
+            <ul class="week-day-tasks">
+                {% for t in day.tasks %}
+                <li>{{ t.title }}{% if t.scheduled_time %} <span class="week-task-time">{{ t.scheduled_time.strftime('%H:%M') }}</span>{% endif %}</li>
+                {% else %}
+                <li class="week-day-empty">No tasks or meetings</li>
+                {% endfor %}
+            </ul>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% include "nav.html" %}
+{% endblock %}

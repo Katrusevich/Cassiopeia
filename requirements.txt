@@ -1,0 +1,16 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+sqlalchemy==2.0.35
+pydantic==2.9.2
+pydantic-settings==2.5.2
+jinja2==3.1.4
+python-multipart==0.0.9
+python-dotenv==1.0.1
+
+# Gemini — новий агент для чату / форс-мажор-перепланування
+google-genai==0.3.0
+
+# (опційно, лишаю якщо десь ще викликається старий parse_task на OpenAI)
+langchain==0.3.3
+langchain-openai==0.2.2
+openai==1.51.2

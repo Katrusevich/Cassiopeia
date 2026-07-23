@@ -1,0 +1,97 @@
+<!-- Shared day view: used by today.html (SPA panel) and pages/day.html (standalone /day/{date}) -->
+<div class="today-wrapper">
+
+    {% if is_today and next_notification %}
+    <div class="inline-notification">
+        <i class="fa-solid fa-bell"></i>
+        Notification: {{ next_notification.scheduled_time.strftime('%H:%M') }} - {{ next_notification.title }}
+    </div>
+    {% endif %}
+
+    <h2 class="panel-title" id="today-date-title" {% if is_today %}data-live="true"{% endif %}>{{ page_title }}</h2>
+
+    <div class="tasks-card main-tasks-card">
+        <div class="card-header">
+            <h3>Top 3 Priority Tasks</h3>
+            <div class="header-icon">
+                <i class="fa-regular fa-clock"></i>
+                <span class="icon-text">START</span>
+            </div>
+        </div>
+
+        <ul class="task-list" id="top-tasks-list">
+            {% for t in top_tasks %}
+            <li class="task-item{% if t.completed %} done{% endif %}" data-id="{{ t.id }}"
+                {% if t.deadline %}data-deadline="{{ t.deadline.isoformat() }}"{% endif %}
+                {% if t.scheduled_time %}data-scheduled="{{ t.scheduled_time.isoformat() }}"{% endif %}>
+                <label class="custom-checkbox">
+                    <input type="checkbox" data-id="{{ t.id }}" {% if t.completed %}checked{% endif %}
+                        onchange="toggleTaskDone(this)">
+                    <span class="checkmark"></span>
+                    <span class="task-text">{% if t.scheduled_time %}<span class="task-time">{{ t.scheduled_time.strftime('%H:%M') }}</span> - {% endif %}{{ t.title }}</span>
+                </label>
+                <button class="task-forward-btn" data-id="{{ t.id }}" onclick="forwardTask({{ t.id }})"
+                    title="Push to next slot">
+                    <i class="fa-solid fa-forward"></i>
+                </button>
+            </li>
+            {% else %}
+            <li class="task-item empty-item">
+                <span class="task-text">No priority tasks yet — add one via chat.</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="tasks-card small-tasks-card">
+        <div class="card-header">
+            <h3>Minor Tasks (up to 10)</h3>
+            <div class="header-icon">
+                <i class="fa-regular fa-flag"></i>
+                <span class="icon-text">FINISH</span>
+            </div>
+        </div>
+
+        <ul class="task-list" id="small-tasks-list">
+            {% for t in minor_tasks %}
+            <li class="task-item{% if t.completed %} done{% endif %}" data-id="{{ t.id }}"
+                {% if t.deadline %}data-deadline="{{ t.deadline.isoformat() }}"{% endif %}
+                {% if t.scheduled_time %}data-scheduled="{{ t.scheduled_time.isoformat() }}"{% endif %}>
+                <label class="custom-checkbox">
+                    <input type="checkbox" data-id="{{ t.id }}" {% if t.completed %}checked{% endif %}
+                        onchange="toggleTaskDone(this)">
+                    <span class="checkmark"></span>
+                    <span class="task-text">{% if t.scheduled_time %}<span class="task-time">{{ t.scheduled_time.strftime('%H:%M') }}</span> - {% endif %}{{ t.title }}</span>
+                </label>
+                <button class="task-forward-btn" data-id="{{ t.id }}" onclick="forwardTask({{ t.id }})"
+                    title="Push to next slot">
+                    <i class="fa-solid fa-forward"></i>
+                </button>
+            </li>
+            {% else %}
+            <li class="task-item empty-item">
+                <span class="task-text">No minor tasks yet.</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="today-footer">
+        <p class="edit-hint">New tasks can be added below, or via chat</p>
+    </div>
+
+</div>
+
+{% if is_today %}
+<button class="add-task-fab" id="add-task-fab" onclick="toggleAddTaskForm()">
+    <i class="fa-solid fa-plus"></i> Add Task
+</button>
+<div class="add-task-form" id="add-task-form" style="display:none;">
+    <input type="text" id="add-task-title" class="tracker-input" placeholder="Task title" style="width:100%;">
+    <div class="add-task-row">
+        <input type="time" id="add-task-time" class="tracker-input">
+        <label class="add-task-top-label"><input type="checkbox" id="add-task-top"> Top task</label>
+    </div>
+    <button class="wheel-action-btn wheel-action-primary" onclick="submitQuickTask()">Save Task</button>
+</div>
+{% endif %}
