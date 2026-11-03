@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 .env
 planner.db
+# Звіт ПЗ2: проміжні файли збірки
+report/build/

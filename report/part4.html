@@ -1,0 +1,126 @@
+<section class="part">
+<h1>Частина 4. UI-kit та прототип екранів</h1>
+
+<div class="note"><b>Обраний шлях: Варіант B — імплементація в коді (AI-first).</b> UI-kit реалізовано на React + Vite, документація компонентів — у Storybook. Код писався в Claude Code (інструмент, обраний у Частині 1), усі рішення перевірені в браузері.</div>
+
+<h2>4.1. Результат і як його запустити</h2>
+<table>
+<tr><td class="k" style="width:26%">Репозиторій</td><td><a href="https://github.com/Katrusevich/Cassiopeia">github.com/Katrusevich/Cassiopeia</a>, папка <code>ui-kit/</code></td></tr>
+<tr><td class="k">Стек</td><td>React 19, Vite, Storybook 10, іконки lucide-react; без CSS-фреймворків — усі стилі на design tokens</td></tr>
+<tr><td class="k">Storybook</td><td><code>cd ui-kit</code> → <code>npm install</code> → <code>npm run storybook</code> → відкрити <code>http://localhost:6006</code></td></tr>
+<tr><td class="k">Клікабельний прототип</td><td><code>npm run dev</code> → <code>http://localhost:5173</code> (також як історія <i>Screens / Prototype</i> у Storybook)</td></tr>
+<tr><td class="k">Збірка статичного Storybook</td><td><code>npm run build-storybook</code> → папка <code>storybook-static/</code></td></tr>
+</table>
+<p>Структура коду підкреслює реюзабельність: <code>src/styles/tokens.css</code> — єдине джерело кольорів, шрифтів і відступів; <code>src/components/</code> — компоненти й їхні stories; <code>src/screens/</code> — екрани, зібрані лише з компонентів UI-kit.</p>
+
+<h2>4.2. Design tokens</h2>
+<p>Усі візуальні значення зібрані в одному файлі <code>tokens.css</code> у три шари: <b>primitives</b> (сира палітра), <b>semantic</b> (ролі: primary, surface, text, success…) і <b>themes</b> (перепризначення ролей). Компоненти посилаються лише на семантичні токени, тому жоден hex-код не зустрічається поза <code>tokens.css</code> (перевірено пошуком по <code>src/</code>).</p>
+<table>
+<tr><th style="width:22%">Група</th><th>Токени</th><th style="width:30%">Значення</th></tr>
+<tr><td class="k">Primary</td><td><code>--color-primary</code>, <code>-hover</code>, <code>-active</code>, <code>--color-on-primary</code></td><td>Navy #1A2639 → #2B3B55 → #0F1826; текст на ньому #F8F5EE</td></tr>
+<tr><td class="k">Secondary</td><td><code>--color-secondary</code>, <code>-hover</code>, <code>-active</code></td><td>Forest green #2C4C3B → #3F6B53 → #1F3829</td></tr>
+<tr><td class="k">Accent</td><td><code>--color-accent</code>, <code>-strong</code>, <code>-soft</code></td><td>Золото #C9A227, #A8851A, фон #F6EDC9</td></tr>
+<tr><td class="k">Neutral</td><td><code>--color-bg</code>, <code>surface</code>, <code>surface-alt</code>, <code>border</code>, <code>text</code>, <code>text-muted</code>, <code>disabled-*</code></td><td>Кремові #F0EAD6 / #F8F5EE / #EBE5D9, camel #D4BD9E, сірий текст #6A717D</td></tr>
+<tr><td class="k">Semantic</td><td><code>--color-success</code>, <code>error</code>, <code>warning</code> (+ <code>-bg</code>)</td><td>#2F6B45, #8B3A3A, #8A5A0B на приглушених фонах</td></tr>
+<tr><td class="k">Типографіка</td><td><code>--font-heading</code>, <code>--font-body</code>, <code>--fs-h1</code> … <code>--fs-caption</code></td><td>Playfair Display / Lato; H1 28–36 px, H2 24, H3 20, body 16, small 14, caption 12</td></tr>
+<tr><td class="k">Відступи</td><td><code>--space-1</code> … <code>--space-8</code></td><td>Крок 4 px: 4, 8, 12, 16, 24, 32, 48, 64</td></tr>
+<tr><td class="k">Форма</td><td><code>--radius-sm/md/lg/xl</code>, <code>--shadow-sm/md</code></td><td>8, 15, 20, 30 px; м’які тіні кольору navy</td></tr>
+</table>
+<figure><img src="@shot/colors" alt="Палітра"><figcaption>Рис. 3. Storybook · Foundations · Colors (палітра з hex-значеннями, що оновлюються разом із темою)</figcaption></figure>
+<figure><img src="@shot/typography" alt="Типографіка" style="max-height:62mm"><figcaption>Рис. 4. Storybook · Foundations · Typography (H1–H3, body, small, caption, eyebrow)</figcaption></figure>
+</section>
+
+<section>
+<h2>4.3. Реюзабельність: заміна кольору за кілька хвилин</h2>
+<p>Це ключова вимога викладача. Щоб замінити синій на зелений, достатньо змінити роль <code>primary</code> в одному місці. У проєкті це вже зроблено як друга тема <code>forest</code> — вона перемикається в тулбарі Storybook (Theme):</p>
+<pre style="background:var(--navy);color:var(--cream);padding:3mm 4mm;border-radius:2mm;font-size:9pt;line-height:1.45;overflow:hidden;margin:2mm 0 3mm">/* tokens.css */
+[data-theme='forest'] {
+  --color-primary: var(--green-600);        /* було navy */
+  --color-primary-hover: var(--green-800);  /* було navy-700 */
+  --color-primary-active: var(--green-900); /* було navy-950 */
+}</pre>
+<p>Жоден компонент або екран при цьому не змінюється: основні кнопки, активний пункт навігації, повідомлення користувача в чаті й позначка сьогоднішнього дня в календарі перефарбовуються автоматично. Нижче — той самий екран Today у двох темах.</p>
+<div class="pair">
+<figure><img src="@shot/screen-today" alt="Today, тема navy"><figcaption>Тема «Old Money» (primary — navy)</figcaption></figure>
+<figure><img src="@shot/screen-today-forest" alt="Today, тема forest"><figcaption>Тема «Forest» (primary — green): змінено 3 рядки в tokens.css</figcaption></figure>
+</div>
+</section>
+
+<section class="part">
+<h2 style="margin-top:0">4.4. Компоненти та їхні стани</h2>
+<p>Кожен компонент має окрему сторінку в Storybook із усіма станами. Стани hover, active і focus також доступні як класи <code>.is-hover</code>, <code>.is-active</code>, <code>.is-focus</code>, тому їх видно в одній таблиці без наведення миші.</p>
+<table>
+<tr><th style="width:20%">Компонент</th><th style="width:42%">Варіанти й стани</th><th>Story</th></tr>
+<tr><td class="k">Button</td><td>primary, secondary, outline, ghost, danger; sm / md / lg; default, hover, active, focus, disabled; з іконкою</td><td>Components / Button</td></tr>
+<tr><td class="k">Input (Field)</td><td>default, hover, focus, error (із повідомленням), disabled; textarea; підпис і підказка</td><td>Components / Input</td></tr>
+<tr><td class="k">Card</td><td>default, elevated, accent, interactive (hover), із блоком дій</td><td>Components / Card</td></tr>
+<tr><td class="k">NavBar</td><td>активний, hover, disabled пункти; 6 розділів продукту</td><td>Components / NavBar</td></tr>
+<tr><td class="k">TaskItem</td><td>todo, Top 3, done, pushed; чекбокс, час, кнопка переносу</td><td>Components / TaskItem</td></tr>
+<tr><td class="k">ChatMessage</td><td>user, assistant, індикатор «ШІ думає»</td><td>Components / ChatMessage</td></tr>
+<tr><td class="k">Badge, ProgressBar, Toast</td><td>neutral, gold, success, warning, error; прогрес зі станами; тост із дією Undo</td><td>Components / Feedback</td></tr>
+<tr><td class="k">BalanceWheel</td><td>радар-діаграма на SVG з токенів</td><td>Components / BalanceWheel</td></tr>
+</table>
+<figure><img src="@shot/button" alt="Button" style="max-height:62mm"><figcaption>Рис. 5. Button: 5 варіантів × 5 станів (default, hover, active, focus, disabled)</figcaption></figure>
+<div class="pair">
+<figure><img src="@shot/input" alt="Input"><figcaption>Рис. 6. Input: default, hover, focus, error, disabled</figcaption></figure>
+<figure><img src="@shot/taskitem" alt="TaskItem"><figcaption>Рис. 7. TaskItem: todo, Top 3, done, pushed</figcaption></figure>
+</div>
+<div class="pair">
+<figure><img src="@shot/card" alt="Card"><figcaption>Рис. 8. Card: варіанти й interactive</figcaption></figure>
+<figure><img src="@shot/navbar" alt="NavBar"><figcaption>Рис. 9. NavBar: активний і disabled пункти</figcaption></figure>
+</div>
+</section>
+
+<section class="part">
+<h2 style="margin-top:0">4.5. Екрани прототипу</h2>
+<p>Прототип містить <b>вісім екранів</b>, відповідно до sitemap із Частини 2. Усі зібрані тільки з компонентів UI-kit: окремих «намальованих» елементів немає.</p>
+<table>
+<tr><th style="width:18%">Екран</th><th style="width:44%">Що показує</th><th>Компоненти</th></tr>
+<tr><td class="k">Today</td><td>Прогрес дня, Top 3, решта завдань, Quick Add; виконати або перенести завдання (з Undo)</td><td>Card, ProgressBar, TaskItem, Field, Button, Badge, Toast</td></tr>
+<tr><td class="k">Chat</td><td>Діалог, картка плану з редагуванням, підтвердження</td><td>ChatMessage, Card, Field, Badge, Button</td></tr>
+<tr><td class="k">Week</td><td>Сім днів із завданнями</td><td>Card, TaskItem, Badge</td></tr>
+<tr><td class="k">Month</td><td>Календарна сітка, деталі дня (Day) при виборі</td><td>Card, TaskItem</td></tr>
+<tr><td class="k">Year</td><td>12 місяців із кількістю завдань, перехід у Month</td><td>Card (interactive)</td></tr>
+<tr><td class="k">Wheel</td><td>Колесо балансу, Priority Board, AI-інсайти</td><td>BalanceWheel, Card, Badge, Button</td></tr>
+<tr><td class="k">Vision &amp; Mission</td><td>Редагування тексту, збереження, валідація</td><td>Field, Button, Toast</td></tr>
+<tr><td class="k">Task Tracker</td><td>Ефективність завдань за часом</td><td>Card, ProgressBar, Badge</td></tr>
+</table>
+<div class="screens">
+<figure><img src="@shot/screen-today" alt="Today"><figcaption>Today</figcaption></figure>
+<figure><img src="@shot/screen-chat" alt="Chat"><figcaption>Chat (план від ШІ)</figcaption></figure>
+<figure><img src="@shot/screen-week" alt="Week"><figcaption>Week</figcaption></figure>
+<figure><img src="@shot/screen-month" alt="Month"><figcaption>Month</figcaption></figure>
+<figure><img src="@shot/screen-year" alt="Year"><figcaption>Year</figcaption></figure>
+<figure><img src="@shot/screen-wheel" alt="Wheel"><figcaption>Wheel of Balance</figcaption></figure>
+<figure><img src="@shot/screen-vision" alt="Vision"><figcaption>Vision &amp; Mission</figcaption></figure>
+<figure><img src="@shot/screen-tracker" alt="Tracker"><figcaption>Task Tracker</figcaption></figure>
+</div>
+</section>
+
+<section class="part">
+<h2 style="margin-top:0">4.6. Навігація та відповідність user flow</h2>
+<p>Нижня навігація працює на всіх екранах; Vision &amp; Mission і Task Tracker відкриваються з Wheel і мають кнопку «Back to Wheel». Головний сценарій із Частини 2 проходиться в прототипі від початку до кінця:</p>
+<table>
+<tr><th style="width:5%">№</th><th style="width:45%">Крок user flow</th><th>Як це працює в прототипі</th></tr>
+<tr><td>1</td><td>Відкриття Cassiopeia, екран Today</td><td>Старт на Today: прогрес, Top 3, список; якщо завдань немає — порожній стан із кнопкою «Plan with chat»</td></tr>
+<tr><td>2</td><td>Перехід у Chat</td><td>Пункт «Chat» у навігації або кнопка «Plan with chat»</td></tr>
+<tr><td>3</td><td>Ввід вільного тексту</td><td>Поле повідомлення; кнопка «Use an example» підставляє приклад із PRD</td></tr>
+<tr><td>4</td><td>ШІ аналізує</td><td>Індикатор «ШІ думає» близько секунди</td></tr>
+<tr><td>5</td><td>Розгалуження: завдання розпізнано?</td><td><b>Ні:</b> відповідь «What exactly needs to be done?» і повтор вводу. <b>Так:</b> картка плану</td></tr>
+<tr><td>6</td><td>Розгалуження: план влаштовує?</td><td>Назви завдань редагуються прямо в картці, зайве видаляється; порожня назва дає помилку поля й блокує підтвердження</td></tr>
+<tr><td>7</td><td>Підтвердження</td><td>«Add to my day» → перехід на Today, тост «3 tasks added to your day»</td></tr>
+<tr><td>8</td><td>Кінцеві стани</td><td>Виконано (чекбокс, закреслення, оновлений прогрес) або перенесено на наступний слот із тостом і дією <b>Undo</b></td></tr>
+</table>
+<div class="note">Розбір повідомлення ШІ в прототипі <b>імітується</b> простими правилами (<code>src/data/parse.js</code>), бо модель підключається в ПЗ3 через наявний FastAPI-бекенд. Інтерфейс і всі переходи при цьому реальні. Стан «помилка мережі» з user flow покритий компонентом Toast (tone «error»), але в прототипі не викликається, бо мережі немає.</div>
+
+<h2>4.7. Бонус: мобільна адаптація</h2>
+<p>Інтерфейс побудований mobile-first: контент має максимальну ширину 720 px і центрується, нижня навігація фіксована, календар і сітки перебудовуються без горизонтального скролу. Усі скріншоти екранів вище — це ширина телефона; на десктопі той самий код виглядає так:</p>
+<figure><img src="@shot/screen-today-desktop" alt="Today на десктопі" style="max-height:80mm"><figcaption>Рис. 10. Today на широкому екрані (той самий код, без окремої версії)</figcaption></figure>
+
+<h2>4.8. Висновки</h2>
+<ul>
+<li>Увесь візуальний стиль керується одним файлом <code>tokens.css</code>; друга тема створена трьома перепризначеними змінними ролі primary.</li>
+<li>Вісім екранів зібрані з десяти компонентів без дублювання стилів.</li>
+<li>Прототип можна підключити до наявного FastAPI-бекенду, це основа для ПЗ №3 (реалізація функціональності, адаптивність).</li>
+</ul>
+</section>

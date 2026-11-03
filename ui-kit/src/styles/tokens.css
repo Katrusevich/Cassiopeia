@@ -1,0 +1,139 @@
+/* ==========================================================================
+   Cassiopeia — design tokens.
+   ЄДИНЕ місце, де живуть кольори, шрифти, відступи, радіуси й тіні.
+   Жоден компонент не містить hex-кольорів: тільки var(--…) з цього файлу.
+
+   Три шари:
+     1. PRIMITIVES — сирі значення (палітра).
+     2. SEMANTIC   — ролі (primary, surface, text, success…), що посилаються на primitives.
+     3. THEMES     — блоки [data-theme="…"], що перепризначають ролі.
+
+   Змінити синій на зелений у всьому продукті = змінити 4 рядки --color-primary*
+   (у :root або в темі forest нижче). Компоненти й екрани чіпати не треба.
+   ========================================================================== */
+
+:root {
+  /* ---- 1. PRIMITIVES: палітра ---- */
+  --navy-950: #0f1826;
+  --navy-900: #1a2639;
+  --navy-700: #2b3b55;
+
+  --green-900: #1f3829;
+  --green-800: #2c4c3b;
+  --green-600: #3f6b53;
+  --green-100: #dce8e0;
+
+  --gold-600: #a8851a;
+  --gold-500: #c9a227;
+  --gold-300: #e3cd7e;
+  --gold-100: #f6edc9;
+
+  --camel-500: #bfa07a;
+  --camel-300: #d4bd9e;
+
+  --cream-50: #fffdf8;
+  --cream-100: #f8f5ee;
+  --cream-200: #f0ead6;
+  --cream-300: #ebe5d9;
+
+  --gray-700: #4a525e;
+  --gray-600: #6a717d;
+  --gray-400: #a5aab3;
+
+  --red-700: #8b3a3a;
+  --red-100: #f2dedc;
+  --amber-700: #8a5a0b;
+  --amber-100: #f7e8c8;
+  --leaf-700: #2f6b45;
+  --leaf-100: #dcebe0;
+
+  /* ---- 2. SEMANTIC: ролі ---- */
+  /* Primary / secondary / accent */
+  --color-primary: var(--navy-900);
+  --color-primary-hover: var(--navy-700);
+  --color-primary-active: var(--navy-950);
+  --color-on-primary: var(--cream-100);
+
+  --color-secondary: var(--green-800);
+  --color-secondary-hover: var(--green-600);
+  --color-secondary-active: var(--green-900);
+  --color-on-secondary: var(--cream-100);
+
+  --color-accent: var(--gold-500);
+  --color-accent-strong: var(--gold-600);
+  --color-accent-soft: var(--gold-100);
+
+  /* Neutral */
+  --color-bg: var(--cream-200);
+  --color-surface: var(--cream-100);
+  --color-surface-raised: var(--cream-50);
+  --color-surface-alt: var(--cream-300);
+  --color-border: var(--camel-300);
+  --color-border-strong: var(--camel-500);
+  --color-text: var(--navy-900);
+  --color-text-muted: var(--gray-600);
+  --color-text-inverse: var(--cream-100);
+  --color-disabled-bg: var(--cream-300);
+  --color-disabled-fg: var(--gray-400);
+  --color-focus-ring: var(--gold-500);
+
+  /* Semantic: success / error / warning */
+  --color-success: var(--leaf-700);
+  --color-success-bg: var(--leaf-100);
+  --color-error: var(--red-700);
+  --color-error-bg: var(--red-100);
+  --color-warning: var(--amber-700);
+  --color-warning-bg: var(--amber-100);
+
+  /* ---- Типографіка ---- */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Lato', 'Segoe UI', system-ui, sans-serif;
+
+  --fs-h1: clamp(1.75rem, 1.4rem + 1.6vw, 2.25rem);
+  --fs-h2: 1.5rem;
+  --fs-h3: 1.25rem;
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-caption: 0.75rem;
+
+  --lh-heading: 1.2;
+  --lh-body: 1.5;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+  --tracking-eyebrow: 0.14em;
+
+  /* ---- Відступи (крок 4px) ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* ---- Форма й рух ---- */
+  --radius-sm: 8px;
+  --radius-md: 15px;
+  --radius-lg: 20px;
+  --radius-xl: 30px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 1px 2px rgb(26 38 57 / 0.08);
+  --shadow-md: 0 6px 18px rgb(26 38 57 / 0.1);
+  --dur-fast: 120ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --nav-height: 68px;
+  --content-width: 720px;
+}
+
+/* ---- 3. THEMES ---- */
+/* Класична тема (navy) — це значення з :root, окремого блоку не потребує. */
+
+/* Forest: «синій → зелений». Міняємо лише три рядки ролі primary (navy → green);
+   secondary лишається як є. Primary трохи світліший за secondary, щоб кнопки відрізнялись. */
+[data-theme='forest'] {
+  --color-primary: var(--green-600);
+  --color-primary-hover: var(--green-800);
+  --color-primary-active: var(--green-900);
+}
