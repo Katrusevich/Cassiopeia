@@ -1,0 +1,165 @@
+/* Каркас додатка й розкладка екранів. Лише токени. */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+.app__main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4) calc(var(--nav-height) + var(--space-8));
+}
+.app__nav {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 10;
+}
+.app__toast {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--nav-height) + var(--space-4));
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--space-4);
+  z-index: 20;
+}
+.app__toast .cs-toast {
+  width: 100%;
+  max-width: 480px;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.stack--lg {
+  gap: var(--space-5);
+}
+.row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+.screen-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.quick-add {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+.quick-add .cs-field {
+  flex: 1;
+}
+
+/* Chat */
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-height: calc(100dvh - var(--nav-height) - var(--space-8));
+}
+.chat__log {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.chat__composer {
+  position: sticky;
+  bottom: calc(var(--nav-height) + var(--space-2));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+}
+.chat__composer textarea.cs-field__control {
+  min-height: 3.5rem;
+}
+.proposal-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.proposal-row__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* Month */
+.cal {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--space-1);
+  text-align: center;
+}
+.cal__dow {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-muted);
+  padding-bottom: var(--space-2);
+}
+.cal__day {
+  position: relative;
+  aspect-ratio: 1;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+.cal__day:hover {
+  background: var(--color-surface-alt);
+}
+.cal__day[data-today] {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+.cal__day[aria-pressed='true'] {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent-soft);
+}
+.cal__dot {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+/* Year */
+.year {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--space-3);
+}
+.year .cs-card {
+  padding: var(--space-4);
+}
+
+@media (min-width: 720px) {
+  .app__main {
+    padding-top: var(--space-7);
+  }
+}

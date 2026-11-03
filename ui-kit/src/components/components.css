@@ -1,0 +1,447 @@
+/* Стилі компонентів UI-kit. Жодних hex-кольорів: тільки var(--…) з tokens.css.
+   Стани hover/active/focus також доступні як класи .is-hover/.is-active/.is-focus,
+   щоб Storybook міг показати їх одночасно в одній таблиці. */
+
+/* ---------- Button ---------- */
+.cs-btn {
+  --btn-bg: var(--color-primary);
+  --btn-bg-hover: var(--color-primary-hover);
+  --btn-bg-active: var(--color-primary-active);
+  --btn-fg: var(--color-on-primary);
+  --btn-border: var(--btn-bg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid var(--btn-border);
+  border-radius: var(--radius-sm);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font: var(--fw-bold) var(--fs-small) / 1 var(--font-body);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+.cs-btn--secondary {
+  --btn-bg: var(--color-secondary);
+  --btn-bg-hover: var(--color-secondary-hover);
+  --btn-bg-active: var(--color-secondary-active);
+  --btn-fg: var(--color-on-secondary);
+}
+.cs-btn--outline {
+  --btn-bg: transparent;
+  --btn-bg-hover: var(--color-surface-alt);
+  --btn-bg-active: var(--color-border);
+  --btn-fg: var(--color-primary);
+  --btn-border: var(--color-primary);
+}
+.cs-btn--ghost {
+  --btn-bg: transparent;
+  --btn-bg-hover: var(--color-surface-alt);
+  --btn-bg-active: var(--color-border);
+  --btn-fg: var(--color-text);
+  --btn-border: transparent;
+}
+.cs-btn--danger {
+  --btn-bg: var(--color-error);
+  --btn-bg-hover: var(--color-error);
+  --btn-bg-active: var(--color-error);
+  --btn-fg: var(--color-text-inverse);
+}
+.cs-btn--danger:hover:not(:disabled),
+.cs-btn--danger.is-hover {
+  filter: brightness(1.15);
+}
+.cs-btn--danger:active:not(:disabled),
+.cs-btn--danger.is-active {
+  filter: brightness(0.85);
+}
+.cs-btn--sm {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--fs-caption);
+}
+.cs-btn--lg {
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--fs-body);
+}
+.cs-btn--block {
+  width: 100%;
+}
+.cs-btn:hover:not(:disabled),
+.cs-btn.is-hover {
+  background: var(--btn-bg-hover);
+}
+.cs-btn:active:not(:disabled),
+.cs-btn.is-active {
+  background: var(--btn-bg-active);
+  transform: translateY(1px);
+}
+.cs-btn.is-focus {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+.cs-btn:disabled {
+  background: var(--color-disabled-bg);
+  border-color: var(--color-disabled-bg);
+  color: var(--color-disabled-fg);
+  cursor: not-allowed;
+}
+
+/* ---------- Field (Input / Textarea) ---------- */
+.cs-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.cs-field__label {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-bold);
+}
+.cs-field__control {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+  color: var(--color-text);
+  font: inherit;
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+textarea.cs-field__control {
+  min-height: 7rem;
+  resize: vertical;
+}
+.cs-field__control::placeholder {
+  color: var(--color-text-muted);
+}
+.cs-field__control:hover:not(:disabled),
+.cs-field__control.is-hover {
+  border-color: var(--color-primary);
+}
+.cs-field__control:focus,
+.cs-field__control.is-focus {
+  outline: none;
+  border-color: var(--color-accent-strong);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
+}
+.cs-field--error .cs-field__control {
+  border-color: var(--color-error);
+}
+.cs-field--error .cs-field__control:focus,
+.cs-field--error .cs-field__control.is-focus {
+  box-shadow: 0 0 0 3px var(--color-error-bg);
+}
+.cs-field__control:disabled {
+  background: var(--color-disabled-bg);
+  color: var(--color-disabled-fg);
+  border-color: var(--color-disabled-bg);
+  cursor: not-allowed;
+}
+.cs-field__hint {
+  font-size: var(--fs-caption);
+  color: var(--color-text-muted);
+}
+.cs-field--error .cs-field__hint {
+  color: var(--color-error);
+}
+
+/* ---------- Card ---------- */
+.cs-card {
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+.cs-card--elevated {
+  border-color: transparent;
+  background: var(--color-surface-raised);
+  box-shadow: var(--shadow-md);
+}
+.cs-card--accent {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+.cs-card--interactive {
+  cursor: pointer;
+  transition: box-shadow var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.cs-card--interactive:hover,
+.cs-card--interactive.is-hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+.cs-card__title {
+  margin-bottom: var(--space-3);
+}
+.cs-card__footer {
+  margin-top: var(--space-4);
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* ---------- Badge ---------- */
+.cs-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.04em;
+}
+.cs-badge--gold {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-strong);
+}
+.cs-badge--success {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+.cs-badge--warning {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+.cs-badge--error {
+  background: var(--color-error-bg);
+  color: var(--color-error);
+}
+
+/* ---------- ProgressBar ---------- */
+.cs-progress {
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-alt);
+  overflow: hidden;
+}
+.cs-progress__fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-secondary);
+  transition: width 300ms var(--ease);
+}
+.cs-progress--warning .cs-progress__fill {
+  background: var(--color-warning);
+}
+.cs-progress--error .cs-progress__fill {
+  background: var(--color-error);
+}
+
+/* ---------- TaskItem ---------- */
+.cs-task {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+}
+.cs-task--top {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+.cs-task__check {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-on-secondary);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.cs-task__check:hover:not(:disabled),
+.cs-task__check.is-hover {
+  border-color: var(--color-secondary);
+}
+.cs-task__check:disabled {
+  cursor: default;
+}
+.cs-task--done .cs-task__check {
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+.cs-task__body {
+  flex: 1;
+  min-width: 0;
+}
+.cs-task__title {
+  font-weight: var(--fw-bold);
+}
+.cs-task--done .cs-task__title {
+  text-decoration: line-through;
+  color: var(--color-text-muted);
+  font-weight: var(--fw-regular);
+}
+.cs-task__meta {
+  font-size: var(--fs-caption);
+  color: var(--color-text-muted);
+}
+.cs-task__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.cs-task--forwarded {
+  opacity: 0.6;
+}
+
+/* ---------- NavBar ---------- */
+.cs-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  height: var(--nav-height);
+  padding: 0 var(--space-2);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+.cs-nav__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border: 0;
+  border-top: 3px solid transparent;
+  background: transparent;
+  color: var(--color-text-muted);
+  font: var(--fw-bold) 0.625rem / 1 var(--font-body);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.cs-nav__item:hover:not(:disabled),
+.cs-nav__item.is-hover {
+  color: var(--color-primary);
+  background: var(--color-surface-alt);
+}
+.cs-nav__item[aria-current='page'] {
+  color: var(--color-primary);
+  border-top-color: var(--color-accent);
+}
+.cs-nav__item:disabled {
+  color: var(--color-disabled-fg);
+  cursor: not-allowed;
+}
+
+/* ---------- ChatMessage ---------- */
+.cs-msg {
+  display: flex;
+}
+.cs-msg--user {
+  justify-content: flex-end;
+}
+.cs-msg__bubble {
+  max-width: 85%;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+}
+.cs-msg--user .cs-msg__bubble {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-on-primary);
+  border-bottom-right-radius: var(--radius-sm);
+}
+.cs-msg--assistant .cs-msg__bubble {
+  border-bottom-left-radius: var(--radius-sm);
+}
+.cs-typing {
+  display: inline-flex;
+  gap: 4px;
+}
+.cs-typing i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  animation: cs-blink 1s infinite;
+}
+.cs-typing i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.cs-typing i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes cs-blink {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+/* ---------- Toast ---------- */
+.cs-toast {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: var(--shadow-md);
+  font-size: var(--fs-small);
+}
+.cs-toast--success {
+  background: var(--color-success);
+}
+.cs-toast--error {
+  background: var(--color-error);
+}
+.cs-toast__action {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  color: var(--color-accent);
+  font: inherit;
+  font-weight: var(--fw-bold);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ---------- BalanceWheel (SVG) ---------- */
+.cs-wheel {
+  width: 100%;
+  max-width: 340px;
+  display: block;
+  margin: 0 auto;
+}
+.cs-wheel__grid {
+  fill: none;
+  stroke: var(--color-border);
+  stroke-width: 1;
+}
+.cs-wheel__axis {
+  stroke: var(--color-border);
+  stroke-width: 1;
+}
+.cs-wheel__area {
+  fill: var(--color-secondary);
+  fill-opacity: 0.25;
+  stroke: var(--color-secondary);
+  stroke-width: 2;
+}
+.cs-wheel__dot {
+  fill: var(--color-accent);
+}
+.cs-wheel__label {
+  fill: var(--color-text);
+  font: var(--fw-bold) 11px var(--font-body);
+}

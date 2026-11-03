@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>Звіт з ПЗ №2 · Cassiopeia</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --navy: #1A2639; --green: #2C4C3B; --gold: #C9A227; --camel: #BFA07A;
+    --cream: #F0EAD6; --panel: #F8F5EE; --gray: #6A717D; --danger: #8B3A3A;
+}
+@page { size: A4; margin: 18mm 16mm; }
+* { box-sizing: border-box; }
+body { font: 11pt/1.5 'Lato', 'Segoe UI', Calibri, sans-serif; color: var(--navy); margin: 0; }
+h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; color: var(--navy); }
+h1 { font-size: 20pt; margin: 0 0 6mm; padding-bottom: 2mm; border-bottom: 2px solid var(--gold); }
+h2 { font-size: 14pt; margin: 7mm 0 2mm; }
+h3 { font-size: 12pt; margin: 5mm 0 1mm; }
+p { margin: 0 0 3mm; text-align: justify; }
+ul, ol { margin: 0 0 3mm; padding-left: 6mm; }
+li { margin-bottom: 1mm; }
+section.part { break-before: page; }
+table { border-collapse: collapse; width: 100%; font-size: 9.5pt; margin: 2mm 0 4mm; break-inside: avoid; }
+th, td { border: 1px solid var(--camel); padding: 1.5mm 2mm; vertical-align: top; text-align: left; }
+th { background: var(--navy); color: var(--cream); font-weight: 700; }
+td.k { background: var(--panel); font-weight: 700; }
+figure { margin: 3mm 0; break-inside: avoid; text-align: center; }
+figure svg, figure img { max-width: 100%; height: auto; }
+figure.flow svg { max-height: 205mm; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; align-items: start; }
+.pair figure img { max-height: 120mm; width: auto; max-width: 100%; border: 1px solid var(--camel); border-radius: 2mm; }
+.screens { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; }
+.screens figure { margin: 0; }
+.screens img { width: 100%; height: 88mm; object-fit: cover; object-position: top; border: 1px solid var(--camel); border-radius: 2mm; }
+figure img { border: 1px solid var(--camel); border-radius: 2mm; }
+a { color: var(--green); }
+figcaption { font-size: 9.5pt; color: var(--gray); margin-top: 1mm; }
+.note { background: var(--panel); border-left: 3px solid var(--gold); padding: 2mm 3mm; margin: 3mm 0; font-size: 10pt; }
+.cover { text-align: center; page-break-after: always; height: 255mm; position: relative; font-family: 'Times New Roman', serif; }
+.cover .top { font-size: 12pt; line-height: 1.35; }
+.cover .mid { position: absolute; top: 100mm; width: 100%; font-size: 13pt; }
+.cover .mid b { font-weight: 400; }
+.cover .who { position: absolute; top: 185mm; right: 0; text-align: right; font-size: 13pt; }
+.cover .city { position: absolute; bottom: 0; width: 100%; font-size: 13pt; }
+.swatches { display: flex; flex-wrap: wrap; gap: 2mm; margin: 2mm 0 4mm; }
+.sw { width: 30mm; border: 1px solid var(--camel); border-radius: 2mm; overflow: hidden; font-size: 8.5pt; break-inside: avoid; }
+.sw i { display: block; height: 11mm; }
+.sw span { display: block; padding: 1mm 1.5mm; }
+.mood { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+.mood .card { border: 1px solid var(--camel); border-radius: 2mm; padding: 2mm; break-inside: avoid; background: var(--panel); }
+.mood .shot { height: 46mm; border: 1px dashed var(--camel); border-radius: 1.5mm; display: flex; align-items: center; justify-content: center; color: var(--gray); font-size: 9pt; background: #fff; margin-bottom: 1.5mm; overflow: hidden; }
+.mood .shot img { width: 100%; height: 100%; object-fit: contain; }
+.mood h3 { font-size: 10.5pt; margin: 0 0 1mm; }
+.mood p { font-size: 8.5pt; margin: 0 0 1mm; text-align: left; line-height: 1.35; }
+code { font-family: Consolas, monospace; font-size: 9.5pt; background: var(--cream); padding: 0 1mm; border-radius: 1mm; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="top">
+    МІНІСТЕРСТВО ОСВІТИ І НАУКИ УКРАЇНИ<br>
+    Харківський національний університет імені В. Н. Каразіна<br>
+    Навчально-науковий інститут комп’ютерних наук<br>та штучного інтелекту<br>
+    Кафедра математичного моделювання та аналізу даних
+  </div>
+  <div class="mid">
+    ЗВІТ<br>З ЛАБОРАТОРНОЇ РОБОТИ № 2<br>
+    дисципліна: «Основи дизайну UI/UX»<br>
+    тема: «Інструменти, user flow, мудборд і UI-kit»<br><br>
+    <b>Команда: Cassiopeia Team<br>Проєкт: Cassiopeia — персональний ШІ-планувальник</b>
+  </div>
+  <div class="who">Виконала: студентка групи КС43<br>Кас’янова Катерина Дмитрівна<br><br>Перевірив: викладач</div>
+  <div class="city">Харків 2026</div>
+</div>
+
+<section>
+<h1>Вступ</h1>
+<p>Це продовження ПЗ №1, де ми описали PRD продукту <b>Cassiopeia</b> — персонального ШІ-планувальника, у якому основна взаємодія відбувається через звичайну розмову. У ПЗ №2 ми перетворюємо вимоги на структуру продукту, візуальну мову та робочий інтерфейс.</p>
+<table>
+<tr><th>Частина</th><th>Що зроблено</th></tr>
+<tr><td class="k">1. Інструменти</td><td>Порівняння Figma, v0, Lovable і Claude Code; вибір інструмента для Частини 4.</td></tr>
+<tr><td class="k">2. User flow та IA</td><td>Sitemap (3 рівні) і блок-схема головного сценарію «Чат → план дня» з розгалуженнями та кінцевими станами.</td></tr>
+<tr><td class="k">3. Мудборд</td><td>8 референсів, опис того, що в них приваблює, і висновки для палітри та шрифтів.</td></tr>
+<tr><td class="k">4. UI-kit і прототип</td><td><b>Обраний шлях — Варіант B (імплементація в коді, AI-first):</b> design tokens, компоненти зі станами, Storybook і 8 екранів із клікабельною навігацією.</td></tr>
+</table>
+<div class="note"><b>Обраний шлях виконання: Варіант B.</b> Cassiopeia вже існує як веб-застосунок із CSS-змінними, тому UI-kit у коді — природне продовження. Крім того, частина ПЗ №3 (реалізація функціональності) виконується одночасно: це свідомий обмін «більше роботи зараз — менше згодом».</div>
+</section>
+
+<section class="part">
+<h1>Частина 1. Аналіз інструментів для дизайну</h1>
+<p>Ми порівняли чотири інструменти для створення візуальних прототипів: один класичний (Figma) і три на базі ШІ, що генерують код або працюють у репозиторії.</p>
+
+<h2>1.1. Короткий опис</h2>
+<ul>
+<li><b>Figma (разом із Figma Make)</b> — стандарт індустрії для дизайну інтерфейсів: компоненти, варіанти станів, variables для токенів, клікабельні прототипи. Figma Make додає генерацію інтерфейсу за промптом.</li>
+<li><b>v0 (Vercel)</b> — генератор React-інтерфейсів за промптом або зображенням; результат — готові компоненти, які копіюються в проєкт.</li>
+<li><b>Lovable</b> — ШІ-конструктор застосунків: генерує повний веб-застосунок із чату, має синхронізацію з GitHub.</li>
+<li><b>Claude Code</b> — ШІ-агент, який працює безпосередньо в репозиторії: читає наявний код, створює й редагує файли, запускає збірку та Storybook.</li>
+</ul>
+
+<h2>1.2. Порівняльна таблиця</h2>
+<table>
+<tr><th style="width:24%">Критерій</th><th>Figma / Figma Make</th><th>v0</th><th>Lovable</th><th>Claude Code</th></tr>
+<tr><td class="k">Тип результату</td><td>Макет і прототип (не код)</td><td>React-компоненти</td><td>Повний застосунок</td><td>Код у вашому репозиторії</td></tr>
+<tr><td class="k">Design tokens</td><td>Variables; перенос у код — окремий крок</td><td>Tailwind/shadcn-теми; токени треба стежити вручну</td><td>Генерує власні стилі; контроль слабший</td><td>Токени в одному <code>tokens.css</code>, правила задаються в інструкціях</td></tr>
+<tr><td class="k">Робота з уже наявним кодом</td><td>Немає</td><td>Обмежена (копіювання)</td><td>Краще працює з нуля</td><td>Працює в існуючому проєкті</td></tr>
+<tr><td class="k">Storybook</td><td>Немає (є лише Figma-компоненти)</td><td>Немає вбудованого</td><td>Немає вбудованого</td><td>Налаштовує й наповнює</td></tr>
+<tr><td class="k">Візуальне редагування</td><td>Відмінне, полотно</td><td>Попередній перегляд у чаті</td><td>Попередній перегляд у чаті</td><td>Немає полотна, перевірка в браузері</td></tr>
+<tr><td class="k">Поріг входу</td><td>Потрібні навички дизайнера</td><td>Низький</td><td>Низький</td><td>Середній: потрібно читати й перевіряти код</td></tr>
+<tr><td class="k">Головний ризик</td><td>Макет і код розходяться</td><td>Загальний «шаблонний» вигляд</td><td>Важко вписати у наявний FastAPI-застосунок</td><td>Без чітких правил ШІ може вшити кольори прямо в компоненти</td></tr>
+</table>
+
+<h2>1.3. Обраний інструмент: Claude Code (Варіант B)</h2>
+<p>Для Частини 4 ми обрали <b>Claude Code</b> і шлях <b>Варіант B</b>. Аргументи:</p>
+<ol>
+<li><b>Вимога реюзабельності.</b> Викладач наголосив, що дизайн має змінюватися централізовано: усі кольори, шрифти й відступи — змінні в одному файлі, і заміна синього на зелений займає кілька хвилин. У коді це природно (CSS custom properties), у Figma для цього потрібна окрема дисципліна variables і режимів.</li>
+<li><b>Наявний продукт.</b> Cassiopeia вже має CSS-змінні (<code>--navy</code>, <code>--forest-green</code>, <code>--gold</code>) і шаблони екранів. Агент у репозиторії може винести їх у токени, а не починати з порожнього полотна.</li>
+<li><b>Storybook.</b> Вимога Варіанта B — окрема історія на кожен компонент зі станами. Агент налаштовує Storybook і пише <code>*.stories.tsx</code> разом із компонентами.</li>
+<li><b>Економія роботи.</b> Екрани, зібрані з компонентів UI-kit, одразу є робочою основою для ПЗ №3.</li>
+</ol>
+<h3>Можливі недоліки та як ми їх знімаємо</h3>
+<table>
+<tr><th style="width:38%">Недолік</th><th>Що робимо</th></tr>
+<tr><td>Немає візуального полотна, результат видно лише в браузері.</td><td>Перевіряємо кожен компонент у Storybook у всіх станах (default, hover, active, disabled).</td></tr>
+<tr><td>ШІ може вшивати кольори й відступи прямо в компоненти — це ламає реюзабельність.</td><td>Правило проєкту: компоненти використовують лише змінні <code>var(--…)</code>; hex-коди дозволені тільки в <code>tokens.css</code>. Перевіряємо пошуком по коду.</td></tr>
+<tr><td>Генерація без референсів дає «усереднений» вигляд.</td><td>Мудборд із Частини 3 і наявна палітра Old Money слугують технічним завданням для генерації.</td></tr>
+<tr><td>Згенерований код може містити помилки.</td><td>Запускаємо збірку й Storybook, переглядаємо диф перед комітом.</td></tr>
+</table>
+<p>Figma ми залишаємо як допоміжний інструмент: за потреби в ній швидко накидається ескіз екрана, але джерелом істини про дизайн є код.</p>
+</section>
+
+<section class="part">
+<h1>Частина 2. User flow та інформаційна архітектура</h1>
+
+<h2>2.1. Sitemap</h2>
+<p>Структура побудована за реальними маршрутами застосунку. Верхній рівень — шість екранів нижньої навігації; Vision &amp; Mission і Task Tracker відкриваються з екрана Wheel of Balance, а екран Day — зі Week та Month. Глибина — три рівні, плоска навігація обрана свідомо: користувач має дістатися до головних дій не більше ніж за два дотики.</p>
+<figure>
+{{SITEMAP}}
+<figcaption>Рис. 1. Sitemap Cassiopeia (створено в коді, інструмент: власний генератор SVG)</figcaption>
+</figure>
+
+</section>
+<section style="break-before: page;">
+<h2 style="margin-top:0">2.2. User flow: «Чат → план дня»</h2>
+<p>Головний сценарій відповідає цілі PRD: перетворити хаотичний перелік думок на реалістичний план дня за кілька хвилин. На схемі три кінцеві стани: завдання виконано, завдання перенесено (із можливістю скасувати) і помилка мережі, при якій дані не змінюються. Два цикли (уточнення ШІ та редагування картки) реалізують принципи «контроль залишається за користувачем» і «можливість скасування» з PRD.</p>
+<figure class="flow">
+{{FLOW}}
+<figcaption>Рис. 2. User flow головного сценарію «Чат → план дня»</figcaption>
+</figure>
+</section>
+
+<section class="part">
+<h1>Частина 3. Мудборд</h1>
+<p>Стилістика Cassiopeia — «Old Money»: спокійна, елегантна, без візуального шуму. Це продукт для людини, яка хоче зменшити когнітивне навантаження, тож інтерфейс має заспокоювати, а не відволікати. Нижче — вісім референсів. Перші три (Aesop, Kinfolk, Ralph Lauren) задають настрій і типографіку; решта п’ять — це робочі інтерфейси планувальників і чату, з яких ми беремо структуру екранів, але не їхню яскраву палітру.</p>
+
+<div class="mood">
+{{MOODBOARD}}
+</div>
+
+<h2>Висновки для UI-kit</h2>
+<div class="swatches">
+<div class="sw"><i style="background:#1A2639"></i><span>Navy<br>#1A2639</span></div>
+<div class="sw"><i style="background:#2C4C3B"></i><span>Forest green<br>#2C4C3B</span></div>
+<div class="sw"><i style="background:#C9A227"></i><span>Gold<br>#C9A227</span></div>
+<div class="sw"><i style="background:#BFA07A"></i><span>Camel<br>#BFA07A</span></div>
+<div class="sw"><i style="background:#F0EAD6"></i><span>Cream<br>#F0EAD6</span></div>
+<div class="sw"><i style="background:#F8F5EE"></i><span>Panel<br>#F8F5EE</span></div>
+<div class="sw"><i style="background:#6A717D"></i><span>Gray text<br>#6A717D</span></div>
+<div class="sw"><i style="background:#8B3A3A"></i><span>Danger<br>#8B3A3A</span></div>
+</div>
+<table>
+<tr><th style="width:22%">Аспект</th><th>Рішення</th></tr>
+<tr><td class="k">Колір</td><td>Кремовий фон, глибокий navy як основний, forest green як вторинний, золото лише для акцентів. Семантичні кольори (success, error, warning) приглушені, щоб не ламали загальний вигляд.</td></tr>
+<tr><td class="k">Шрифти</td><td>Serif із контрастом (Playfair Display) для заголовків — відчуття журналу й статусу; чистий гротеск (Lato) для тексту та інтерфейсу.</td></tr>
+<tr><td class="k">Структура</td><td>Один головний фокус на екрані (Top 3 завдань), великі відступи, картки з м’якими кутами, нижня навігація на шість пунктів.</td></tr>
+<tr><td class="k">Чат</td><td>Інтерфейс розмови подібний до сучасних ШІ-асистентів: тепла палітра, читабельний текст, мінімум декору.</td></tr>
+</table>
+</section>
+
+{{PART4}}
+
+</body>
+</html>
