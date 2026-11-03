@@ -1,7 +1,7 @@
 import { ArrowLeft, Compass, LineChart, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { Badge, BalanceWheel, Button, Card, Field, ProgressBar } from '../components/index.js';
-import { trackerRows, wheelActions, wheelData } from '../data/mock.js';
+import { trackerRows, WHEEL_MAX, wheelActions, wheelData } from '../data/mock.js';
 import { useApp } from '../data/store.jsx';
 
 const Back = ({ navigate }) => (
@@ -23,9 +23,9 @@ export function Wheel({ navigate }) {
       </header>
 
       <Card variant="elevated">
-        <BalanceWheel data={wheelData} />
+        <BalanceWheel data={wheelData} max={WHEEL_MAX} />
         <p className="t-small t-muted" style={{ textAlign: 'center' }}>
-          Rest and Health need attention this week.
+          {weakest[0].label} and {weakest[1].label} need attention this week.
         </p>
       </Card>
 
@@ -35,7 +35,7 @@ export function Wheel({ navigate }) {
           <Card key={w.label}>
             <div className="row-between">
               <span className="t-h3">{i + 1}. {w.label}</span>
-              <Badge tone={w.value <= 3 ? 'error' : 'warning'}>{w.value}/10</Badge>
+              <Badge tone={w.value <= 3 ? 'error' : 'warning'}>{w.value}/{WHEEL_MAX}</Badge>
             </div>
             <p className="t-small t-muted" style={{ marginTop: 'var(--space-2)' }}>
               {wheelActions[w.label]}
@@ -47,8 +47,8 @@ export function Wheel({ navigate }) {
       {insights && (
         <Card variant="accent" title="AI insights">
           <p className="t-small">
-            Most of your tasks this week are work-related. Moving one task to tomorrow frees an evening for rest, which is
-            your weakest area right now.
+            Most of your tasks this week are work-related. Moving one task to tomorrow frees an evening for{' '}
+            {weakest[0].label.toLowerCase()}, which is your weakest area right now.
           </p>
         </Card>
       )}

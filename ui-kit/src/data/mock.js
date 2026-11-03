@@ -16,22 +16,30 @@ export const seedTasks = (today) => [
   { id: 12, title: 'Renew the passport', date: addDays(today, 20), time: null, duration: 45, category: 'Personal', priority: 2, status: 'todo' },
 ];
 
+// Вісім сфер і шкала 1–9 — як у PRD та в основному застосунку (core/config.py → wheel_categories).
+export const WHEEL_MAX = 9;
+
 export const wheelData = [
-  { label: 'Career', value: 8 },
   { label: 'Health', value: 4 },
-  { label: 'Finance', value: 6 },
-  { label: 'Family', value: 7 },
-  { label: 'Growth', value: 5 },
-  { label: 'Rest', value: 3 },
+  { label: 'Relationships', value: 7 },
+  { label: 'Environment', value: 6 },
+  { label: 'Career & Purpose', value: 8 },
+  { label: 'Finances', value: 6 },
+  { label: 'Personal Growth', value: 5 },
+  { label: 'Fun & Recreation', value: 3 },
+  { label: 'Spirituality', value: 5 },
 ];
 
+// Підказки дій — ті самі, що в CATEGORY_META основного застосунку (static/js/app.js).
 export const wheelActions = {
-  Rest: 'Block one free evening this week.',
-  Health: 'Schedule two workouts for the next days.',
-  Growth: 'Add 20 minutes of reading to today.',
-  Finance: 'Review this month’s expenses.',
-  Family: 'Plan a call with someone close.',
-  Career: 'Keep the current pace.',
+  Health: 'Regular Exercise',
+  Relationships: 'Family Time',
+  Environment: 'Improve Environment',
+  'Career & Purpose': 'Career Advancement',
+  Finances: 'Financial Planning',
+  'Personal Growth': 'Personal Development',
+  'Fun & Recreation': 'Make Time to Recharge',
+  Spirituality: 'Spiritual Practice',
 };
 
 export const trackerRows = [
